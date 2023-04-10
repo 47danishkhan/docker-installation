@@ -32,6 +32,16 @@ jobs:
         touch bastion_host_ssh_key.pem
         echo "${{secrets.BASTION_HOST_SSH_KEY}}" >> bastion_host_ssh_key.pem
         chmod 600 bastion_host_ssh_key.pem
+        touch docker-ssh-installation-test.pem
+        echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
+        chmod 400 docker-ssh-installation-test.pem
+        cat >> ~/.ssh/config <<END
+          Host 34.201.101.99
+            IdentityFile ~/.ssh/bastion_host_ssh_key.pem
+            User ubuntu
+            StrictHostKeyChecking no
+            ForwardAgent yes
+          END
 
     - name: Login to bastion EC2
       run: |
@@ -41,13 +51,12 @@ jobs:
         eval `ssh-agent -s`
         ssh-add docker-ssh-installation-test.pem
         ssh-add -L
-        pwd
-        ls -al
         touch docker-ssh-installation-test.pem
         echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
         chmod 400 docker-ssh-installation-test.pem
         ls -al
         ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156
+        ls -al
 
     - name: Install Docker
       run: |
