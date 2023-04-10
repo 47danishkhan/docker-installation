@@ -46,21 +46,14 @@ jobs:
     - name: Login to bastion EC2
       run: |
         ssh -i bastion_host_ssh_key.pem kali@34.201.101.99
-        mkdir -p ~/.ssh
-        cd ~/.ssh
-        touch docker-ssh-installation-test.pem
-        echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
-        chmod 400 docker-ssh-installation-test.pem
-        cat >> ~/.ssh/config <<END
-        Host 34.201.101.99
-            IdentityFile ~/.ssh/bastion_host_ssh_key.pem
-            User ubuntu
-            StrictHostKeyChecking no
-            ForwardAgent yes
-        END
-        ls -al
-        ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156
-        ls -al
+       # mkdir -p ~/.ssh
+       # cd ~/.ssh
+       # touch docker-ssh-installation-test.pem
+       # echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
+       # chmod 400 docker-ssh-installation-test.pem
+       # ls -al
+       # ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156
+       # ls -al
 
     - name: Install Docker
       run: |
