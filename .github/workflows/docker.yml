@@ -43,7 +43,9 @@ jobs:
         eval `ssh-agent -s`
         ssh-add docker-ssh-installation-test.pem
         ssh-add -L
-        ssh -i bastion_host_ssh_key.pem kali@34.201.101.99 
+        ssh -i bastion_host_ssh_key.pem kali@34.201.101.99
+        pwd
+        ls -al
         touch docker-ssh-installation-test.pem
         echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
         chmod 400 docker-ssh-installation-test.pem
