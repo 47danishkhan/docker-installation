@@ -40,7 +40,7 @@ jobs:
       run: |
         cd ~/.ssh
         eval `ssh-agent -s`
-        ssh-add docker-ssh-installation-test.pem
+        ssh-add bastion_host_ssh_key.pem
         ssh-add -L
         sudo ssh 34.201.101.99 "sudo ssh ubuntu@10.1.4.156"
 
