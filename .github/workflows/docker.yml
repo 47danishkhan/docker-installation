@@ -48,12 +48,6 @@ jobs:
         ssh -i bastion_host_ssh_key.pem kali@34.201.101.99
         mkdir -p ~/.ssh
         cd ~/.ssh
-        eval `ssh-agent -s`
-        ssh-add docker-ssh-installation-test.pem
-        ssh-keyscan -H 34.201.101.99 >> ~/.ssh/known_hosts
-        touch bastion_host_ssh_key.pem
-        echo "${{secrets.BASTION_HOST_SSH_KEY}}" >> bastion_host_ssh_key.pem
-        chmod 600 bastion_host_ssh_key.pem
         touch docker-ssh-installation-test.pem
         echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
         chmod 400 docker-ssh-installation-test.pem
