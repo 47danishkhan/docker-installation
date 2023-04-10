@@ -32,6 +32,9 @@ jobs:
         touch bastion_host_ssh_key.pem
         echo "${{secrets.BASTION_HOST_SSH_KEY}}" >> bastion_host_ssh_key.pem
         chmod 600 bastion_host_ssh_key.pem
+        touch BASTION_HOST_SSH_KEY.pem
+        echo "${{secrets.BASTION_HOST_SSH_KEY}}" >> BASTION_HOST_SSH_KEY.pem
+        chmod 400 BASTION_HOST_SSH_KEY.pem
 
     - name: Login to EC2
       run: |
