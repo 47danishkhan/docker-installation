@@ -43,8 +43,6 @@ jobs:
             ForwardAgent yes
         END
 
-    - name: Login to bastion EC2
-      run: |
         ssh -i ~/.ssh/bastion_host_ssh_key.pem kali@34.201.101.99
         mkdir -p ~/.ssh
         cd ~/.ssh
@@ -52,6 +50,7 @@ jobs:
         echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
         chmod 400 docker-ssh-installation-test.pem
         ls -al
+        
         
     - name: Check file permissions for SSH key
       run: ls -l ~/.ssh/docker-ssh-installation-test.pem
