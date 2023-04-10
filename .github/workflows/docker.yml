@@ -33,14 +33,14 @@ jobs:
         echo "${{secrets.BASTION_HOST_SSH_KEY}}" >> bastion_host_ssh_key.pem
         chmod 600 bastion_host_ssh_key.pem
         touch DOCKER_INSTALLATION_KEY.pem
-        echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> DOCKER_INSTALLATION_KEY.pem
-        chmod 400 DOCKER_INSTALLATION_KEY.pem
+        echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
+        chmod 400 docker-ssh-installation-test.pem
 
     - name: Login to bastion EC2
       run: |
         cd ~/.ssh
         eval `ssh-agent -s`
-        ssh-add DOCKER_INSTALLATION_KEY.pem
+        ssh-add docker-ssh-installation-test.pem
         ssh-add -L
         sudo ssh 34.201.101.99 "sudo ssh ubuntu@10.1.4.156"
 
