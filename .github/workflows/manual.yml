@@ -12,13 +12,13 @@ jobs:
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/private_key
-          chmod 600 ~/.ssh/private_key
+          echo "${{ secrets.BASTION_HOST_SSH_KEY }}" > ~/.ssh/BASTION_HOST_SSH_KEY
+          chmod 600 ~/.ssh/BASTION_HOST_SSH_KEY
       - name: SSH into EC2 instance
         uses: appleboy/ssh-action@master
         with:
           host: 34.201.101.99
-          username: ubuntu
+          username: kali
           port: 22
           script: |
             ls -al
