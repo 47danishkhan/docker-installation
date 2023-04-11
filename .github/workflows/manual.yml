@@ -1,21 +1,41 @@
-name: SSH into EC2 instance
+name: ssh-into-aws-ec2
+
 on:
   push:
+    branches: [ "main" ]
+
+env:
+#  bucket_name: "<example-bucket-name>"
+  AWS_REGION: us-east-1
+  REMOTE_HOST: "34.201.101.99"
+  REMOTE_USER: "kali"
+
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
-  ssh:
+  test:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Set up SSH key
-      run: |
-        mkdir -p ~/.ssh
-        cd ~/.ssh
-        echo "${{ secrets.BASTION_HOST_SSH_KEY }}" >> zaproxy-report-generator.pem
-        chmod 600 zaproxy-report-generator.pem
-    - name: Get GitHub Actions IP address
-      run: curl https://api.github.com/meta | grep actions
-    - name: Ping EC2 instance
-      run: ping -c 5 34.201.101.99
-    - name: SSH into EC2 instance
-      run: ssh -i zaproxy-report-generator.pem kali@34.201.101.99 "ls /tmp/zaproxy"
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >>~/.ssh/config <<END
+          Host ec2
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_HOST: ${{ env.REMOTE_HOST }}
+          SSH_USER: ${{ env.REMOTE_USER }}
+          SSH_KEY: ${{ secrets.BASTION_HOST_SSH_KEY }} 
+      - name: List home directory
+        run: ssh ec2 'ls -la'
