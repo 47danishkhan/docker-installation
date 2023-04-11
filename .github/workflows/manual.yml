@@ -40,5 +40,5 @@ jobs:
       - name: List home directory
         run: ssh ec2 'ls /tmp'
       - name:SSH into Docker instance
-        run: 'touch docker-ssh-installation-test.pem'
+        run: ssh ec2 'touch docker-ssh-installation-test.pem'
 
