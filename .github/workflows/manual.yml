@@ -38,4 +38,4 @@ jobs:
           SSH_USER: ${{ env.REMOTE_USER }}
           SSH_KEY: ${{ secrets.BASTION_HOST_SSH_KEY }} 
       - name: List home directory
-        run: ssh ec2 'ls -la'
+        run: ssh ec2 'ls /tmp/zaproxy'
