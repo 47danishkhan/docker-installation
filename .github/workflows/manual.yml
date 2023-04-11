@@ -41,9 +41,7 @@ jobs:
       - name: Login to docker on BW EC2
         run: |
           cd ~/.ssh
-          eval `ssh-agent -s`
-          ssh-add docker-ssh-installation-test.pem
-          ssh-add -L
+          ls -al
           ssh 34.201.101.99 "ssh ubuntu@10.1.4.156 "ls -al""
 
 
