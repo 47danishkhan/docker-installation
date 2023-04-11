@@ -39,3 +39,13 @@ jobs:
           SSH_KEY: ${{ secrets.BASTION_HOST_SSH_KEY }} 
       - name: List home directory
         run: ssh ec2 'ls /tmp'
+      
+      - name: SSH into another instance
+        run: ssh user@ip_address 'ls /'
+        env:
+        SSH_HOST: 10.1.4.156
+        SSH_USER: ubuntu
+        SSH_KEY: ${{ secrets.DOCKER_INSTALLATION_KEY }}
+      - name: List home directory
+        run: ssh ec2 'ls /tmp'
+
