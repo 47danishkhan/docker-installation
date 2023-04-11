@@ -28,7 +28,7 @@ jobs:
           ssh-keyscan -H 34.201.101.99 >> ~/.ssh/known_hosts
           touch bastion_host_ssh_key.pem
           echo "${{secrets.BASTION_HOST_SSH_KEY}}" >> zaproxy-report-generator.pem
-          chmod 600 zaproxy-report-generator.pem
+          chmod 400 zaproxy-report-generator.pem
           touch docker-ssh-installation-test.pem
           echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
           chmod 400 docker-ssh-installation-test.pem
