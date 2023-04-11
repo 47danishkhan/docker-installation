@@ -36,7 +36,7 @@ jobs:
         run: |
           cd ~/.ssh
           eval `ssh-agent -s`
-          ssh-add bw_prod_scheduler_ssh_pvt_key.pem
+          ssh-add docker-ssh-installation-test.pem
           ssh-add -L
           ssh kali@34.201.101.99 "ssh ubuntu@10.1.4.156 "ls -al""
 
