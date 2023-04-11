@@ -32,9 +32,9 @@ jobs:
           touch docker-ssh-installation-test.pem
           echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
           chmod 400 docker-ssh-installation-test.pem
+          cat known_hosts
       - name: Docker on EC2
         run: |
-          cd /tmp
           ls -al
 
       
