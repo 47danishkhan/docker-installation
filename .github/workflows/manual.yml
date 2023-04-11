@@ -4,11 +4,11 @@ on:
   push:
     branches: [ "main" ]
 
-env:
+#env:
 #  bucket_name: "<example-bucket-name>"
-  AWS_REGION: us-east-1
-  REMOTE_HOST: "34.201.101.99"
-  REMOTE_USER: "kali"
+ # AWS_REGION: us-east-1
+  #REMOTE_HOST: "34.201.101.99"
+  #REMOTE_USER: "kali"
 
 permissions:
   contents: read
