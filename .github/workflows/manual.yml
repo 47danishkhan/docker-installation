@@ -33,7 +33,7 @@ jobs:
           echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
           chmod 400 docker-ssh-installation-test.pem
           ls -al
-          ssh -i zaproxy-report-generator.pem kali@34.201.101.99 "ls -al"
+          ssh -i zaproxy-report-generator.pem kali@34.201.101.99 "ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156"
 
       
 
