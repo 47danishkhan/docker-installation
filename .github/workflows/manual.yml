@@ -39,6 +39,6 @@ jobs:
           SSH_KEY: ${{ secrets.BASTION_HOST_SSH_KEY }} 
       - name: List home directory
         run: ssh ec2 'ls /tmp'
-      - name:SSH into Docker instance
-        run: ssh ec2 'touch docker-ssh-installation-test.pem'
+      - name: SSH into Docker instance
+        run: 'touch docker-ssh-installation-test.pem'
 
