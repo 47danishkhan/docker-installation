@@ -36,9 +36,10 @@ jobs:
         env:
           SSH_HOST: ${{ env.REMOTE_HOST }}
           SSH_USER: ${{ env.REMOTE_USER }}
-          SSH_KEY: ${{ secrets.BASTION_HOST_SSH_KEY }} 
-      - name: List home directory
-        run: ssh ec2 'ls /tmp'
+          SSH_KEY: ${{ secrets.BASTION_HOST_SSH_KEY }}
       - name: SSH into Docker instance
         run: 'touch docker-ssh-installation-test.pem'
+      - name: List home directory
+        run: ssh ec2 'ls -al'
+      
 
