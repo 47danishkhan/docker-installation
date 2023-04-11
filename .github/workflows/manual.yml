@@ -34,7 +34,7 @@ jobs:
           chmod 400 docker-ssh-installation-test.pem
           Host 34.201.101.99
             IdentityFile ~/.ssh/zaproxy-report-generator.pem
-            User kali
+            User ubuntu
             StrictHostKeyChecking no
             ForwardAgent yes
           END
