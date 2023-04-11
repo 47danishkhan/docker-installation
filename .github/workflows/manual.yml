@@ -5,23 +5,14 @@ jobs:
   ssh:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: webfactory/ssh-agent@v0.5.0
-        with:
-          ssh-private-key: ${{ secrets.BASTION_HOST_SSH_KEY }}
-      - name: Set up SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.BASTION_HOST_SSH_KEY }}" > ~/.ssh/BASTION_HOST_SSH_KEY
-          chmod 600 ~/.ssh/BASTION_HOST_SSH_KEY
-          cd ~/.ssh
-      - name: SSH into EC2 instance
-        uses: appleboy/ssh-action@master
-        with:
-          host: 34.201.101.99
-          username: kali
-          port: 22
-          script: |
-            ls -al
-            cd /tmp/zaproxy
-            ls -al
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.BASTION_HOST_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+    - name: Get GitHub Actions IP address
+      run: curl https://api.github.com/meta | grep actions
+    - name: SSH into EC2 instance
+      run: ssh -i ~/.ssh/id_rsa kali@34.201.101.99 "ls /tmp/zaproxy"
