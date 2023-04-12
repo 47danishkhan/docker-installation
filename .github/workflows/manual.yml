@@ -34,15 +34,3 @@ jobs:
           chmod 400 docker-ssh-installation-test.pem
           ls -al
           ssh -i zaproxy-report-generator.pem kali@34.201.101.99 "ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156"
-      - name: Copy file to EC2
-        uses: appleboy/scp-action@master
-        with:
-          host: 34.201.101.99
-          username: kali
-          key: ${{ secrets.DOCKER_INSTALLATION_KEY }} # or you can use a password instead of a key
-          source: ~/.ssh
-          target: ~/.ssh
-
-
-      
-
