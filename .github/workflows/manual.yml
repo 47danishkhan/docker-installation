@@ -32,12 +32,6 @@ jobs:
           touch docker-ssh-installation-test.pem
           echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
           chmod 400 docker-ssh-installation-test.pem
-          Host 34.201.101.99
-            IdentityFile ~/.ssh/zaproxy-report-generator.pem
-            User ubuntu
-            StrictHostKeyChecking no
-            ForwardAgent yes
-          END
       - name: Copy file to EC2
         uses: appleboy/scp-action@master
         with:
