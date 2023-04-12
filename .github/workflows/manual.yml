@@ -38,11 +38,14 @@ jobs:
             StrictHostKeyChecking no
             ForwardAgent yes
           END
-      - name: Login to docker on BW EC2
-        run: |
-          cd ~/.ssh
-          ls -al
-          ssh 34.201.101.99 "ssh ubuntu@10.1.4.156 "ls -al""
+      - name: Copy file to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: 34.201.101.99
+          username: kali
+          key: ${{ secrets.DOCKER_INSTALLATION_KEY }} # or you can use a password instead of a key
+          source: ~/.ssh
+          target: ~/.ssh
 
 
       
