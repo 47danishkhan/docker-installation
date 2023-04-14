@@ -36,4 +36,4 @@ jobs:
           ls -al
           ssh -i zaproxy-report-generator.pem ubuntu@54.166.207.95
       - name: list files
-        run: ls -al
+        run: ssh ec2 'ls -al'
