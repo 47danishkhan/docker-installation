@@ -5,12 +5,6 @@ on:
     branches:
      - main
 
-#env:
-#  bucket_name: "<example-bucket-name>"
- # AWS_REGION: us-east-1
-  #REMOTE_HOST: "34.201.101.99"
-  #REMOTE_USER: "kali"
-
 permissions:
   contents: read
   id-token: write
@@ -22,17 +16,17 @@ jobs:
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
-      - name: Configure SSH
+
+      - name: Copy ssh key to first instance
         run: |
           mkdir -p ~/.ssh
           cd ~/.ssh
           ssh-keyscan -H 54.166.207.95 >> ~/.ssh/known_hosts
-          touch bastion_host_ssh_key.pem
-          echo "${{secrets.BASTION_HOST_SSH_KEY}}" >> zaproxy-report-generator.pem
+          touch zaproxy-report-generator.pem
+          echo "${{ secrets.BASTION_HOST_SSH_KEY }}" >> zaproxy-report-generator.pem
           chmod 400 zaproxy-report-generator.pem
-          touch docker-ssh-installation-test.pem
-          echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
-          chmod 400 docker-ssh-installation-test.pem
-          echo "ls" > mycommands.sh
-          chmod +x mycommands.sh
-          ssh -i zaproxy-report-generator.pem ubuntu@54.166.207.95 "ssh -i ${{secrets.DOCKER_INSTALLATION_KEY}} ubuntu@10.1.4.156 "./commands.sh""
+          scp -i zaproxy-report-generator.pem "${{ secrets.DOCKER_INSTALLATION_KEY }}" ubuntu@54.166.207.95:~/docker-ssh-installation-test.pem
+
+      - name: SSH into second instance
+        run: |
+          ssh -i zaproxy-report-generator.pem ubuntu@54.166.207.95 "ssh -i ~/docker-ssh-installation-test.pem ubuntu@10.1.4.156 'ls'"
