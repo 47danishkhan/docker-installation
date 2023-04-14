@@ -22,7 +22,7 @@ jobs:
           cd ~/.ssh
           ssh-keyscan -H 54.166.207.95 >> ~/.ssh/known_hosts
           echo "${{secrets.BASTION_HOST_SSH_KEY}}" > new-bastion-host.pem
-          chmod 400 zaproxy-report-generator.pem
+          chmod 400 new-bastion-host.pem
           echo "${{secrets.DOCKER_INSTALLATION_KEY}}" > docker-ssh-installation-test.pem
           chmod 400 docker-ssh-installation-test.pem
           scp -i new-bastion-host.pem docker-ssh-installation-test.pem ubuntu@54.166.207.95:~/docker-ssh-installation-test.pem
