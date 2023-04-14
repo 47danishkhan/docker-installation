@@ -35,4 +35,4 @@ jobs:
           chmod 400 docker-ssh-installation-test.pem
           echo "ls" > mycommands.sh
           chmod +x mycommands.sh
-          ssh -i zaproxy-report-generator.pem ubuntu@54.166.207.95 "ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156 "./commands.sh""
+          ssh -i zaproxy-report-generator.pem ubuntu@54.166.207.95 "ssh -i ${{secrets.DOCKER_INSTALLATION_KEY}} ubuntu@10.1.4.156 "./commands.sh""
