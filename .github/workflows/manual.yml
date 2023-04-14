@@ -25,5 +25,6 @@ jobs:
           chmod 400 new-bastion-host.pem
           echo "${{secrets.DOCKER_INSTALLATION_KEY}}" > docker-ssh-installation-test.pem
           chmod 400 docker-ssh-installation-test.pem
+          chmod 600 /home/ubuntu/docker-ssh-installation-test.pem
           scp -i new-bastion-host.pem docker-ssh-installation-test.pem ubuntu@54.166.207.95:~/docker-ssh-installation-test.pem
-          ssh -i new-bastion-host.pem ubuntu@54.166.207.95 "chmod 400 ~/docker-ssh-installation-test.pem && cat ~/docker-ssh-installation-test.pem >> ~/.ssh/authorized_keys && ssh -i ~/docker-ssh-installation-test.pem ubuntu@10.1.4.156 'ls -al'"
+          ssh -i new-bastion-host.pem ubuntu@54.166.207.95 "chmod 400 docker-ssh-installation-test.pem && ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156 'ls -al'"
