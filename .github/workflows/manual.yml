@@ -16,17 +16,14 @@ jobs:
     steps:
       - name: Git clone the repository
         uses: actions/checkout@v3
-
-      - name: Copy ssh key to first instance
+      - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
           cd ~/.ssh
           ssh-keyscan -H 54.166.207.95 >> ~/.ssh/known_hosts
-          touch zaproxy-report-generator.pem
-          echo "${{ secrets.BASTION_HOST_SSH_KEY }}" >> zaproxy-report-generator.pem
+          echo "${{secrets.BASTION_HOST_SSH_KEY}}" > zaproxy-report-generator.pem
           chmod 400 zaproxy-report-generator.pem
-          scp -i zaproxy-report-generator.pem "${{ secrets.DOCKER_INSTALLATION_KEY }}" ubuntu@54.166.207.95:~/docker-ssh-installation-test.pem
-
-      - name: SSH into second instance
-        run: |
-          ssh -i zaproxy-report-generator.pem ubuntu@54.166.207.95 "ssh -i ~/docker-ssh-installation-test.pem ubuntu@10.1.4.156 'ls'"
+          echo "${{secrets.DOCKER_INSTALLATION_KEY}}" > docker-ssh-installation-test.pem
+          chmod 400 docker-ssh-installation-test.pem
+          scp -i zaproxy-report-generator.pem docker-ssh-installation-test.pem ubuntu@54.166.207.95:~/docker-ssh-installation-test.pem
+          ssh -i zaproxy-report-generator.pem ubuntu@54.166.207.95 "chmod 400 docker-ssh-installation-test.pem && ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156 'ls -al'"
