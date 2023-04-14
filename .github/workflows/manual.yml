@@ -35,3 +35,5 @@ jobs:
           chmod 400 docker-ssh-installation-test.pem
           ls -al
           ssh -i zaproxy-report-generator.pem ubuntu@54.166.207.95
+      - name: list files
+        run: ls -al
