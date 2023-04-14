@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           cd ~/.ssh
-          ssh-keyscan -H 34.201.101.99 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 54.166.207.95 >> ~/.ssh/known_hosts
           touch bastion_host_ssh_key.pem
           echo "${{secrets.BASTION_HOST_SSH_KEY}}" >> zaproxy-report-generator.pem
           chmod 400 zaproxy-report-generator.pem
@@ -34,4 +34,4 @@ jobs:
           echo "${{secrets.DOCKER_INSTALLATION_KEY}}" >> docker-ssh-installation-test.pem
           chmod 400 docker-ssh-installation-test.pem
           ls -al
-          ssh -i zaproxy-report-generator.pem kali@34.201.101.99 "ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156"
+          ssh -i zaproxy-report-generator.pem ubuntu@54.166.207.95 "ssh -i docker-ssh-installation-test.pem ubuntu@10.1.4.156"
