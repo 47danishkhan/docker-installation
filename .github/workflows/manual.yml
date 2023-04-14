@@ -38,6 +38,6 @@ jobs:
           echo "ls"
           echo "pwd" > mycommands.sh
           chmod +x mycommands.sh
-          ssh -i zaproxy-report-generator.pem -L 2222:second-instance-ip:22 ubuntu@54.166.207.95 -N &
+          ssh -i zaproxy-report-generator.pem -L 2222:10.1.4.156:22 ubuntu@54.166.207.95 -N &
           sleep 5
-          ssh -i ssh_key_for_second_instance.pem -p 2222 ubuntu@localhost 'bash -s' < mycommands.sh
+          ssh -i docker-ssh-installation-test.pem -p 2222 ubuntu@localhost 'bash -s' < mycommands.sh
